@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<div id="box">
+			<div class="imgList">
+				<div class="imgItem active" style="background-image: url(img/img1.jpg);"></div>
+				<div class="imgItem" style="background-image: url(img/img2.jpg);"></div>
+				<div class="imgItem" style="background-image: url(img/img3.jpg);"></div>
+				<div class="imgItem" style="background-image: url(img/img4.webp);"></div>
+				<div class="imgItem" style="background-image: url(img/img5.webp);"></div>
+			</div>
+			<div class="btnList">
+				<div class="btn pre"><</div>
+				<div class="btn next">></div>
+			</div>
+			<div class="circleList">
+				<div id="c0" class="circleItem active"></div>
+				<div id="c1" class="circleItem"></div>
+				<div id="c2" class="circleItem"></div>
+				<div id="c3" class="circleItem"></div>
+				<div id="c4" class="circleItem"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var nextBtn = document.querySelector("#box .next");
+			var preBtn = document.querySelector("#box .pre");
+			var imgItems = document.querySelectorAll(".imgItem");
+			var circleItems = document.querySelectorAll(".circleItem")
+			var currentcount = 0;
+			
+			function renderNumImg(){
+				imgItems.forEach(function(item,i,arr){
+					item.classList.remove("active");
+				})
+				
+				circleItems.forEach(function(item,i){
+				item.classList.remove("active");
+			})
+				
+				
+				imgItems[currentcount].classList.add("active");
+				circleItems[currentcount].classList.add("active");
+			}
+			nextBtn.onclick = function(){
+				currentcount++
+				if(currentcount>=imgItems.length){
+					currentcount = 0;
+				}
+				renderNumImg()
+			}
+			
+			
+			
+			preBtn.onclick = function(){
+				currentcount--
+				if(currentcount<0){
+					currentcount = imgItems.length-1;
+				}
+				renderNumImg()
+			}
+			//代理
+			var circleList = document.querySelector(".circleList");
+			circleList.onclick = function(event){
+				console.log(event)
+				if(event.target.classList.contains("circleItem")){
+					var index =parseInt(event.target.id[1]);
+					currentcount = index;
+					renderNumImg();
+				}
+			}
+			
+		</script>
+	</body>
+</html>
